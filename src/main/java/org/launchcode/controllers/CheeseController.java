@@ -1,9 +1,9 @@
 package org.launchcode.controllers;
 
-import org.launchcode.models.Cheese;
 import org.launchcode.models.Category;
-import org.launchcode.models.data.CheeseDao;
+import org.launchcode.models.Cheese;
 import org.launchcode.models.data.CategoryDao;
+import org.launchcode.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * Created by LaunchCode
  */
 @Controller
-@RequestMapping("cheese")
+@RequestMapping(value = "cheese")
 public class CheeseController {
 
     @Autowired
@@ -58,6 +58,7 @@ public class CheeseController {
 
         Category cat = categoryDao.findOne(categoryId);
         newCheese.setCategory(cat);
+
         cheeseDao.save(newCheese);
         return "redirect:";
     }

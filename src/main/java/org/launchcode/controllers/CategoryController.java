@@ -1,7 +1,6 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
-import org.launchcode.models.CategoryType;
 import org.launchcode.models.data.CategoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,8 +34,7 @@ public class CategoryController {
     public String displayAddCategoryForm(Model model) {
 
         model.addAttribute("title", "Add Category");
-        model.addAttribute(new Category());
-        model.addAttribute("categoryTypes", CategoryType.values());
+        model.addAttribute("category", new Category());
         return "category/add";
     }
 
