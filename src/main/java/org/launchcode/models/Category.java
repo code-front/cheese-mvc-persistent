@@ -25,7 +25,7 @@ public class Category {
 
     @OneToMany
     @JoinColumn(name = "category_id") /////////
-    private List<Cheese> cheeseList = new ArrayList<>();
+    private List<Cheese> cheeses = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -36,7 +36,7 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-    public List<Cheese> getCheeses() {return cheeseList;}
+    public List<Cheese> getCheeses() {return cheeses;}  // may not need this
 
 
 }

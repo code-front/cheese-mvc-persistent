@@ -2,7 +2,6 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.data.CategoryDao;
-import org.launchcode.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,15 +19,13 @@ public class CategoryController {
     @Autowired
     private CategoryDao categoryDao;
 
-    @Autowired
-    private CheeseDao cheeseDao;
-
     // Request path: /category
-    @RequestMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
 
         model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("title", "Categories");
+
         return "category/index";
     }
 
@@ -41,15 +38,17 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(@ModelAttribute @Valid Category newCategory,  Errors errors, Model model){
+    public String add( Model model,
+                       @ModelAttribute @Valid Category newCategory,  Errors errors){
 
         if(errors.hasErrors()) {
-            model.addAttribute("title", "Can't Add Category");
+
             return "category/add";
         }
-
-        categoryDao.save(newCategory);
-        return "redirect:/category";
+        else {
+            categoryDao.save(newCategory);
+            return "redirect:";
+        }
     }
 
 
