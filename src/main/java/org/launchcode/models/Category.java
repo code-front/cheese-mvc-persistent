@@ -1,12 +1,13 @@
 package org.launchcode.models;
 
+
 import org.aspectj.weaver.patterns.TypeCategoryTypePattern;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Category {
@@ -19,43 +20,26 @@ public class Category {
     @Size(min=3, max=15)
     private String name;
 
-    @NotNull
-    @Size(min=1, message = "Description must not be empty")
-    private String description;
-
-    private CategoryType type;
-
+    public Category() { }
     public Category(String name) {
         this.name = name;
     }
 
-    public Category() { }
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<Cheese> cheeseList = new ArrayList<>();
 
     public int getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
-    public CategoryType getType() {
-        return type;
-    }
 
-    public void setType(CategoryType type) {
-        this.type = type;
-    }
 }
