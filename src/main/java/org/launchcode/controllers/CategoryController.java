@@ -2,6 +2,7 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.data.CategoryDao;
+import org.launchcode.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,16 +10,18 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "category")
+@RequestMapping("category")
 public class CategoryController {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private CheeseDao cheeseDao;
 
     // Request path: /category
     @RequestMapping(value = "")
@@ -26,7 +29,6 @@ public class CategoryController {
 
         model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("title", "Categories");
-
         return "category/index";
     }
 
@@ -42,31 +44,13 @@ public class CategoryController {
     public String add(@ModelAttribute @Valid Category newCategory,  Errors errors, Model model){
 
         if(errors.hasErrors()) {
-            model.addAttribute("title", "Add Category");
+            model.addAttribute("title", "Can't Add Category");
             return "category/add";
         }
 
         categoryDao.save(newCategory);
-        return "redirect:";
+        return "redirect:/category";
     }
-
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveCategoryForm(Model model) {
-        model.addAttribute("categories", categoryDao.findAll());
-        model.addAttribute("title", "Remove Category");
-        return "category/remove";
-    }
-
-    @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCategoryForm(@RequestParam int[] categoryIds) {
-
-        for (int categoryId : categoryIds) {
-            categoryDao.delete(categoryId);
-        }
-
-        return "redirect:";
-    }
-
 
 
 }

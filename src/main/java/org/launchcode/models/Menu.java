@@ -23,7 +23,7 @@ public class Menu {
     @ManyToMany
     private List<Cheese> cheeses;
 
-    public Menu() {    }
+    public Menu() {}
 
     public Menu(String name) {
         this.name = name;

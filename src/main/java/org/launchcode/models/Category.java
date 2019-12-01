@@ -1,8 +1,6 @@
 package org.launchcode.models;
 
 
-import org.aspectj.weaver.patterns.TypeCategoryTypePattern;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,7 +24,7 @@ public class Category {
     }
 
     @OneToMany
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id") /////////
     private List<Cheese> cheeseList = new ArrayList<>();
 
     public int getId() {
@@ -38,8 +36,7 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
-
+    public List<Cheese> getCheeses() {return cheeseList;}
 
 
 }

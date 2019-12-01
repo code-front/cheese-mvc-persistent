@@ -4,30 +4,17 @@
 
 <body class="container">
 
-<h1 th:text="${title}">Default Title</h1>
+<h1 th:text="${title}">Random Title</h1>
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${category} and ${categories.size()}">no category:(</p>
+<a href="/category/add">Add Category</a>
 
+<ul>
+    <li th:each="category : ${categories}"
+        th:text="$category.getName()}"></li>
+</ul>
 
-<table class="table">
-
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Type</th>
-    </tr>
-
-    <tr th:each="category : ${categories}">
-        <td th:text="${category.name}"></td>
-        <td th:text="${category.description}"></td>
-        <td th:text="${category.type.name}"></td>
-    </tr>
-
-</table>
-
-<a href="/cheese/add">Add Category</a>
 
 </body>
 </html>

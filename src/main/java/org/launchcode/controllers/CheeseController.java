@@ -18,8 +18,10 @@ import javax.validation.Valid;
 /**
  * Created by LaunchCode
  */
+
+
 @Controller
-@RequestMapping(value = "cheese")
+@RequestMapping("cheese")
 public class CheeseController {
 
     @Autowired
@@ -32,9 +34,8 @@ public class CheeseController {
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("cheeses", cheeseDao.findAll());
+        model.addAttribute("cheese", cheeseDao.findAll());
         model.addAttribute("title", "My Cheeses");
-
         return "cheese/index";
     }
 
@@ -60,24 +61,8 @@ public class CheeseController {
         newCheese.setCategory(cat);
 
         cheeseDao.save(newCheese);
-        return "redirect:";
+        return "redirect:/cheese";
     }
 
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveCheeseForm(Model model) {
-        model.addAttribute("cheeses", cheeseDao.findAll());
-        model.addAttribute("title", "Remove Cheese");
-        return "cheese/remove";
-    }
-
-    @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
-
-        for (int cheeseId : cheeseIds) {
-            cheeseDao.delete(cheeseId);
-        }
-
-        return "redirect:";
-    }
 
 }

@@ -2,6 +2,7 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Cheese;
 import org.launchcode.models.Menu;
+import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
 import org.launchcode.models.data.MenuDao;
 import org.launchcode.models.forms.AddMenuItemForm;
@@ -26,6 +27,9 @@ public class MenuController {
     @Autowired
     private MenuDao menuDao;
 
+    @Autowired
+    private CategoryDao categoryDao;
+
     // Request path: /menu
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -37,6 +41,7 @@ public class MenuController {
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
+
         model.addAttribute("title", "Add Menu");
         model.addAttribute(new Menu());
         return "menu/add";
@@ -85,7 +90,6 @@ public class MenuController {
 
         Menu menu = menuDao.findOne(itemForm.getMenuId());
         Cheese cheese = cheeseDao.findOne(itemForm.getCheeseId());
-
         menu.addItem(cheese);
         menuDao.save(menu);
 
