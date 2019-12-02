@@ -21,7 +21,7 @@ public class Cheese {
 
     @NotNull
     @Size(min=1, message = "Description must not be empty")
-    private String description;
+    private String description = "";
 
     @ManyToOne
     private Category category;

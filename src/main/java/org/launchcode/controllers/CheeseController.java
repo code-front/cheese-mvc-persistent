@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by LaunchCode
@@ -54,15 +55,34 @@ public class CheeseController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
+            //model.addAttribute("categories", categoryDao.findAll());
             return "cheese/add";
         }
 
         Category cat = categoryDao.findOne(categoryId);
         newCheese.setCategory(cat);
-
         cheeseDao.save(newCheese);
-        return "redirect:/cheese";
+        return "redirect:";
     }
 
+    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    public String displayRemoveCheeseForm(Model model) {
+
+        model.addAttribute("cheeses", cheeseDao.findAll());
+        model.addAttribute("title", "Remove Cheese");
+        return "cheese/remove";
+
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
+
+        for (int cheeseId : cheeseIds) {
+            cheeseDao.delete(cheeseId);
+        }
+
+        return "redirect:";
+
+    }
 
 }
