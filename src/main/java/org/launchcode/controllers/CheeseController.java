@@ -20,7 +20,6 @@ import java.util.List;
  * Created by LaunchCode
  */
 
-
 @Controller
 @RequestMapping("cheese")
 public class CheeseController {
@@ -32,7 +31,7 @@ public class CheeseController {
     private CategoryDao categoryDao;
 
     // Request path: /cheese
-    @RequestMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
 
         model.addAttribute("cheese", cheeseDao.findAll());
@@ -42,6 +41,7 @@ public class CheeseController {
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddCheeseForm(Model model) {
+
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
         model.addAttribute("categories", categoryDao.findAll());
@@ -55,7 +55,7 @@ public class CheeseController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
-            //model.addAttribute("categories", categoryDao.findAll());
+            model.addAttribute("categories", categoryDao.findAll());
             return "cheese/add";
         }
 
@@ -80,7 +80,6 @@ public class CheeseController {
         for (int cheeseId : cheeseIds) {
             cheeseDao.delete(cheeseId);
         }
-
         return "redirect:";
 
     }
