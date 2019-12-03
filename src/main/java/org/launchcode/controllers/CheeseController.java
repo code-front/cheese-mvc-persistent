@@ -34,7 +34,7 @@ public class CheeseController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
 
-        model.addAttribute("cheese", cheeseDao.findAll());
+        model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("title", "My Cheeses");
         return "cheese/index";
     }
