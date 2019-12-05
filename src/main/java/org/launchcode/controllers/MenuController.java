@@ -75,12 +75,12 @@ public class MenuController {
 
         Menu menu = menuDao.findOne(menuId);
         AddMenuItemForm itemForm = new AddMenuItemForm(menu, cheeseDao.findAll());
-        model.addAttribute("title", "Add item to menu: " + menu.getName());
+        model.addAttribute("title", "Add menu: " + menu.getName());
         model.addAttribute("form", itemForm);
         return "menu/add-item";
     }
 
-    @RequestMapping(value = "add-item", method = RequestMethod.POST)
+    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.POST)
     public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm itemForm,
                           Errors errors) {
 
@@ -92,6 +92,7 @@ public class MenuController {
 
             Menu menu = menuDao.findOne(itemForm.getMenuId());
             Cheese cheese = cheeseDao.findOne(itemForm.getCheeseId());
+
             menu.addItem(cheese);
             menuDao.save(menu);
 
