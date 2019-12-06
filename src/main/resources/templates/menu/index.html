@@ -1,23 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
     <head th:replace="fragments :: head"></head>
-
     <body class="container">
-
-        <h1 th:text="${title}">Random
-         Title</h1>
+        <h1 th:text="${title}">Random Title</h1>
 
         <nav th:replace="fragments :: navigation"></nav>
-        <p th:unless="${menus} and ${menus.size()}">no menus :(</p>
+
+       <!-- <p th:unless="${menus} and ${menus.size()}">no menus :(</p> -->
 
         <ul>
             <li th:each="menu : ${menus}">
-                <a th:href="'menu/view/' + ${menuId}" th:text="${menu.name}"></a>
+                <a th:href="'menu/view/' + ${menu.id}" th:text="${menu.name}"></a>
             </li>
         </ul>
 
-        <a th:href="@{menu/add}">Add Menu</a>
+        <p><a href="/menu/add">Add Menu</a></p>
 
     </body>
 </html>
