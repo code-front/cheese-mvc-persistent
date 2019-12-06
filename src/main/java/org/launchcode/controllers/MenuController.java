@@ -27,7 +27,7 @@ public class MenuController {
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("title", "Menus");
-        model.addAttribute("menu", menuDao.findAll());
+        model.addAttribute("menus", menuDao.findAll());
         return "menu/index";
     }
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,6 @@ public class MenuController {
                  cheeseDao.findAll(),
                  menu);
         model.addAttribute("title", "Add item to menu: " + menu.getName());
-        //System.out.println("This is the GET method");
         model.addAttribute("form", form);
 
         return "menu/add-item";
